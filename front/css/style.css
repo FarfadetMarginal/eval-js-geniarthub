@@ -278,3 +278,137 @@ article > div > div.price > p {
     font-weight: 400;
     line-height: normal;
 }
+
+
+
+.sectionpanier article{
+    display: block;
+    padding: 10px 10px 50px 10px;
+}
+
+.sectionpanier article img{
+    width: 30%;
+    max-width: 400px;
+}
+
+.sectionpanier article a{
+    color: #FFF;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    background: #ee4343;
+    text-decoration: none;
+    padding:8px 20px;
+    margin: auto;
+    display: inline-block;
+    margin-top: 24px;
+    &:hover{
+        background: #EE7F43;
+    }
+}
+
+.sectionpanier article input{
+        border: 1px solid #EE7F43;
+    font-family: 'Source Sans 3', sans-serif;
+    height:46px;
+    /* width:83px; */
+    background-color: transparent;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.sectionpanier #showprice{
+    padding: 10px;
+    color: #000;
+    text-align: center;
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.sectionpanier article p{
+        font-family: 'Source Sans 3', sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#sectioncommande form{
+    display: grid;
+    width: fit-content;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+}
+
+
+#sectioncommande form input{
+    border: 1px solid #EE7F43;
+    font-family: 'Source Sans 3', sans-serif;
+    height:55px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0;
+}
+
+#sectioncommande form #commander{
+    background-color: #EE7F43;
+    color: #F3F3F3;
+    cursor: pointer;
+    &:hover{
+        background: #8dc538;
+    }
+}
+
+.sectionconfirmed{
+    padding: 10px;
+}
+
+.sectionconfirmed h2, .sectionconfirmed p{
+    color: #000;
+    text-align: center;
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.sectionconfirmed a{
+    color: #FFF;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    background: #EE7F43;
+    text-decoration: none;
+    padding:8px 20px;
+    margin: auto;
+    display: block;
+    width: fit-content;
+    margin-top: 24px;
+    &:hover{
+        background: #8dc538;
+    }
+    
+}
+
+.sectionconfirmed article{
+    justify-self: center
+}

@@ -8,38 +8,49 @@ function delCom(z) {
     getPanier()
 }
 
-
-
 function getPanier(){
     sectionpanier.textContent = ""
     let panier = JSON.parse(localStorage.getItem("panier"))
     let prixtotal = 0
+    let quantitetotal = 0
     let id = 0
     panier.forEach(el => {
         let article = document.createElement('article')
         let idart = id
+        let tempprix = ""
+        let tempindex = -1
+        console.log(el.declinaisons)
+            el.declinaisons.forEach(element => {
+                tempindex +=1
+                if (el.format == element.taille){
+                    tempprix = element.prix
+                    console.log(tempprix)
+                }
+            });
         article.innerHTML = 
         `
                 <img src="${el.image}" alt="${el.title}">
                 <p>${el.title}</p>
                 <p>format : ${el.format}</p>
-                <p>prix unitaire : ${el.prix} €</p>
+                <p>prix unitaire : ${tempprix} €</p>
                 <input type="number" name="quantity" class="quantity" placeholder="1" value="${el.quantite}" min="1">
                 <a class="del" onclick="delCom('${el.liendel}')" href="#">supprimer du panier</a>
             `
         sectionpanier.append(article)
-        prixtotal += (el.prix * el.quantite)
+        prixtotal += (tempprix * el.quantite)
+        quantitetotal += parseInt(el.quantite)
         
-        console.log(idart)
 
         const quantity = article.querySelector(".quantity")
         
         function calcul2(x){
             prixtotal = 0
+            quantitetotal = 0
             panier.forEach(x => {
-                prixtotal += (x.prix * x.quantite) 
+                prixtotal += (tempprix * x.quantite) 
+                quantitetotal += parseInt(x.quantite)
                 let showprice = document.querySelector("#showprice")
-                showprice.textContent = "Prix total : " + prixtotal + "€"
+                showprice.textContent = "Prix total : " + prixtotal.toFixed(2) + "€ - Nombre d'article : " + quantitetotal
             });
         }
 
@@ -55,8 +66,9 @@ function getPanier(){
             updatePanier(idart)
         })
         id +=1
+        console.log(panier)
     });
-    sectionpanier.insertAdjacentHTML("beforeend", `<p id="showprice">Prix total : ${prixtotal} €</p>`)
+    sectionpanier.insertAdjacentHTML("beforeend", `<p id="showprice">Prix total : ${prixtotal.toFixed(2)} € - Nombre d'article : ${quantitetotal}</p>`)
 }
 
 getPanier()
@@ -74,20 +86,32 @@ commander.addEventListener('click', async (e) => {
 	e.preventDefault();
 	
     let tableauId = []
-    let panier = JSON.parse(localStorage.getItem("panier"))
+    let panier = JSON.parse(localStorage.getItem("panier")) || []
+    console.log(panier)
     panier.forEach(el => {
         tableauId.push(el.liendel)
     });
 
     console.log(tableauId)
+    console.log([])
+    if (tableauId == []){
+        console.log("tableauid = vide")
+    } else if (panier == []) {
+        console.log("panier = vide")
+    } else if(panier == tableauId){
+        console.log("panier vide = tableauid vide")
+    } else {
+        console.log("ntm")
+    }
 
+    console.log(tableauId.length)
 
-    //récupérer le contenu du input
     function isValidEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
-}
-    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <2 || isValidEmail(email.value) == false ){
+    }
+    //récupérer le contenu du input
+    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <2 || isValidEmail(email.value) == false || tableauId.length == 0){
         alert("champs incorrects")
         prenom.value = "" 
         nom.value = "" 
@@ -115,7 +139,9 @@ commander.addEventListener('click', async (e) => {
             }
         })
         
-        console.log(await datas.json())
+        const res = await datas.json()
+        localStorage.setItem("order", JSON.stringify(res))
+        window.location = 'confirmedorder.html'
     }
 })
 

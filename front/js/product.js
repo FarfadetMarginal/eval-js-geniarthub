@@ -35,7 +35,7 @@ async function getProduct(x){
                     <span class="showprice">${res.declinaisons[0].prix}€</span>
                 </div>
                 <div class="declinaison">
-                    <input type="number" name="quantity" id="quantity" placeholder="1" value="1" min="1">
+                    <input type="number" name="quantity" id="quantity" placeholder="1" value="1" min="1" max="99">
                     <select name="format" id="format">
                     ${optionsprix}
                     </select>
@@ -55,8 +55,13 @@ async function getProduct(x){
         const buttonbuy = document.querySelector(".button-buy")
 
         function updatePrix(){
+            if (quantity.value < 100){
             let bonprix = res.declinaisons[format.value].prix * quantity.value 
             showprice.textContent = bonprix + "€"
+            } else {
+                alert("quantité max = 100")
+                quantity.value = 1
+            }
         }
         format.addEventListener('change',()=>{
             updatePrix()
@@ -70,12 +75,31 @@ async function getProduct(x){
                 image : res.image,
                 title : res.titre,
                 format : res.declinaisons[format.value].taille,
-                prix : res.declinaisons[format.value].prix,
                 quantite : quantity.value, 
-                liendel : res._id
+                liendel : res._id,
+                declinaisons : res.declinaisons
             }
             let panier = JSON.parse(localStorage.getItem("panier")) || []
-            panier.push(neworder)
+            let tempid = ""
+            let tempindex = -1
+            panier.forEach(el => {
+                tempindex +=1
+                if (res._id == el.liendel && res.declinaisons[format.value].taille == el.format){
+                    tempid = el.liendel
+                }
+            });
+            console.log(tempid)
+            console.log(tempindex)
+            if(tempid == ""){
+                panier.push(neworder)
+            } else {
+
+                let tempqte = parseInt(panier[tempindex].quantite) + parseInt(quantity.value)
+                panier[tempindex].quantite = tempqte
+
+                //mettre à jour le localStorage avec les nouvelles données
+                localStorage.setItem("panier", JSON.stringify(panier))
+            }
             console.log(panier)
             localStorage.setItem("panier", JSON.stringify(panier))
         })
@@ -85,6 +109,5 @@ async function getProduct(x){
     }
 
 }
-
 
 getProduct(id)
