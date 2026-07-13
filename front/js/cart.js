@@ -38,14 +38,11 @@ function getPanier(){
         prixtotal += (tempprix * el.quantite)
         quantitetotal += parseInt(el.quantite)
         
-        console.log(idart)
-
         const quantity = article.querySelector(".quantity")
         
         function calcul2(x){
             prixtotal = 0
-            quantitetotal = 0
-            
+            quantitetotal = 0  
             panier.forEach(x => {
                 let tempprix2 = 0
                 console.log(x.declinaisons)
@@ -100,26 +97,17 @@ commander.addEventListener('click', async (e) => {
         tableauId.push(el.liendel)
     });
 
-    console.log(tableauId)
-    console.log([])
-    if (tableauId == []){
-        console.log("tableauid = vide")
-    } else if (panier == []) {
-        console.log("panier = vide")
-    } else if(panier == tableauId){
-        console.log("panier vide = tableauid vide")
-    } else {
-        console.log("ntm")
-    }
-
-    console.log(tableauId.length)
-
     function isValidEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     }
+
+    function isValidText(txt){
+        const regex2 = /^[a-zA-Z0-9àâäéèêëïîôùûüÿæœçÀÂÄÉÈÊËÏÎÔÙÛÜŸÆŒÇ\s_-]+$/;
+        return regex2.test(txt);
+    }
     //récupérer le contenu du input
-    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <3 || isValidEmail(email.value) == false || tableauId.length == 0){
+    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <3 || isValidEmail(email.value) == false || isValidText(prenom.value) == false || isValidText(nom.value) == false || isValidText(adresse.value) == false || isValidText(ville.value) == false || tableauId.length == 0){
         alert("champs incorrects")
         prenom.value = "" 
         nom.value = "" 

@@ -1,13 +1,9 @@
 const detailoeuvre = document.querySelector(".detailoeuvre")
 const url = window.location.href
 const url3 = new URL(window.location.href)
-const id = url3.searchParams.get("id")
-console.log(url)
-const idurl = url.slice(-8)
-console.log(idurl)
 const idurl2 = url.search("id=")
-console.log(url.substring(idurl2+3, idurl2+11))
-console.log(id)
+const id = url3.searchParams.get("id")
+
 
 
 async function getProduct(x){
