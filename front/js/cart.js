@@ -18,10 +18,8 @@ function getPanier(){
         let article = document.createElement('article')
         let idart = id
         let tempprix = ""
-        let tempindex = -1
         console.log(el.declinaisons)
             el.declinaisons.forEach(element => {
-                tempindex +=1
                 if (el.format == element.taille){
                     tempprix = element.prix
                     console.log(tempprix)
@@ -40,14 +38,24 @@ function getPanier(){
         prixtotal += (tempprix * el.quantite)
         quantitetotal += parseInt(el.quantite)
         
+        console.log(idart)
 
         const quantity = article.querySelector(".quantity")
         
         function calcul2(x){
             prixtotal = 0
             quantitetotal = 0
+            
             panier.forEach(x => {
-                prixtotal += (tempprix * x.quantite) 
+                let tempprix2 = 0
+                console.log(x.declinaisons)
+                x.declinaisons.forEach(xxx => {
+                if (x.format == xxx.taille){
+                    tempprix2 = xxx.prix
+                    console.log(tempprix2)
+                }
+            });
+                prixtotal += (tempprix2 * x.quantite)
                 quantitetotal += parseInt(x.quantite)
                 let showprice = document.querySelector("#showprice")
                 showprice.textContent = "Prix total : " + prixtotal.toFixed(2) + "€ - Nombre d'article : " + quantitetotal
@@ -111,7 +119,7 @@ commander.addEventListener('click', async (e) => {
         return regex.test(email);
     }
     //récupérer le contenu du input
-    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <2 || isValidEmail(email.value) == false || tableauId.length == 0){
+    if(prenom.value.length <2 || nom.value.length <2 || adresse.value.length <10 || ville.value.length <3 || isValidEmail(email.value) == false || tableauId.length == 0){
         alert("champs incorrects")
         prenom.value = "" 
         nom.value = "" 
